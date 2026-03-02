@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import cc.fastcv.stage.StageActivity
+import cc.fastcv.ui.demo.date_switch_view.DateSwitchViewActivity
 import cc.fastcv.ui.demo.exquisite_histogram.ExquisiteHistogramActivity
 import cc.fastcv.ui.demo.flash_text_view.FlashTextViewActivity
 import cc.fastcv.ui.demo.line_number_clock.LineNumberClockActivity
@@ -32,6 +33,10 @@ class UIDemoActivity : StageActivity() {
 
         findViewById<AppCompatButton>(R.id.bt3).setOnClickListener {
             startActivity(Intent(this, ExquisiteHistogramActivity::class.java))
+        }
+
+        findViewById<AppCompatButton>(R.id.bt4).setOnClickListener {
+            startActivity(Intent(this, DateSwitchViewActivity::class.java))
         }
     }
 }

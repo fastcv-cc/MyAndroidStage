@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DateSwitchView">
+        <!--开关tab的宽度-->
+        <attr name="tabWidth" format="integer|dimension" />
+        <!--开关tab的高度-->
+        <attr name="tabHeight" format="integer|dimension" />
+        <!--开关tab外边距-->
+        <attr name="tabMargin" format="integer|dimension" />
+
+        <attr name="tabSelectedTextColor" format="color" />
+        <attr name="tabTextColor" format="color" />
+        <attr name="tabTextSize" format="dimension" />
+        <attr name="dayTabText" format="string" />
+        <attr name="monthTabText" format="string" />
+        <attr name="weekStrArrays" format="reference" />
+        <attr name="monthStrArrays" format="reference" />
+        <attr name="weekStartWith">
+            <enum name="monday" value="0" />
+            <enum name="sunday" value="1" />
+        </attr>
+        <attr name="weekTextMargin" format="integer|dimension" />
+    </declare-styleable>
+</resources>

@@ -4,5 +4,6 @@
     <application>
         <activity android:name="cc.fastcv.ui.demo.UIDemoActivity" />
         <activity android:name="cc.fastcv.ui.demo.flash_text_view.FlashTextViewActivity" />
+        <activity android:name="cc.fastcv.ui.demo.line_number_clock.LineNumberClockActivity" />
     </application>
 </manifest>

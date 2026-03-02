@@ -37,6 +37,7 @@ dependencies {
     implementation libs.material
     implementation project(':ui:flash_text_view')
     implementation project(':stage')
+    implementation project(':ui:line_number_clock')
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core

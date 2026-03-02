@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bt1"
-        android:text="FlashTextView" />
+        android:gravity="center"
+        android:text="点击时钟旋转屏幕"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <cc.fastcv.line_number_clock.LineNumberClockView
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt2"
-        android:text="LineNumberClock" />
+        android:layout_height="match_parent" />
 
 
 

@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import cc.fastcv.stage.StageActivity
 import cc.fastcv.ui.demo.flash_text_view.FlashTextViewActivity
+import cc.fastcv.ui.demo.line_number_clock.LineNumberClockActivity
 
 class UIDemoActivity : StageActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,10 @@ class UIDemoActivity : StageActivity() {
 
         findViewById<AppCompatButton>(R.id.bt1).setOnClickListener {
             startActivity(Intent(this, FlashTextViewActivity::class.java))
+        }
+
+        findViewById<AppCompatButton>(R.id.bt2).setOnClickListener {
+            startActivity(Intent(this, LineNumberClockActivity::class.java))
         }
     }
 }

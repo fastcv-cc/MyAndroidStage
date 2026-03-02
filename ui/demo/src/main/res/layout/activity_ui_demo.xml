@@ -18,5 +18,12 @@
         android:text="LineNumberClock" />
 
 
+  <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt3"
+        android:text="ExquisiteHistogram" />
+
+
 
 </LinearLayout>

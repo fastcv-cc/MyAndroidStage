@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="320dp">
+
+
+    <!--底部数值指示栏-->
+    <FrameLayout
+        android:id="@+id/fl_bottom_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="63dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <cc.fastcv.exquisite_histogram.LineView
+                android:layout_width="5dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="1"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_select"
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="44dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5.5dp"
+            android:background="@drawable/ui_shape_histogram_select_point" />
+
+        <cc.fastcv.exquisite_histogram.DashedView
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_tip"
+        android:layout_width="96dp"
+        android:layout_height="44dp"
+        android:background="@drawable/ui_shape_histogram_tip_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#003324"
+            android:textSize="12sp"
+            tools:text="900 times" />
+
+        <TextView
+            android:id="@+id/tv_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#61003324"
+            android:textSize="11sp"
+            tools:text="10:00-11:00" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="63dp"
+        android:layout_marginBottom="40dp"
+        android:orientation="horizontal"
+        android:paddingEnd="16dp">
+
+        <LinearLayout
+            android:id="@+id/ll_side_way_bar"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+
+        <cc.fastcv.exquisite_histogram.ExquisiteHistogramViewExt
+            android:id="@+id/ui_histogram"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+</FrameLayout>

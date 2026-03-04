@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity android:name="cc.fastcv.file_manager.FileManagerMainActivity" />
+        <activity android:name="cc.fastcv.file_manager.CustomSingleImageSelectActivity" />
+        <activity android:name="cc.fastcv.file_manager.CustomSingleVideoSelectActivity" />
+        <activity android:name="cc.fastcv.file_manager.FileManagerActivity" />
+        <activity android:name="cc.fastcv.file_manager.SelectSingleImageActivity" />
+        <activity android:name="cc.fastcv.file_manager.SelectSingleVideoActivity" />
+    </application>
+</manifest>

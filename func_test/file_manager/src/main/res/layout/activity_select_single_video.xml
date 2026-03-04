@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <VideoView
+        android:id="@+id/vv_show"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_marginTop="48dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitCenter" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btCaptureVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/shape_bt_bg"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:height="48dp"
+        android:textSize="16sp"
+        android:text="@string/shot" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btSystemGallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/shape_bt_bg"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:height="48dp"
+        android:textSize="16sp"
+        android:text="@string/system_album" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btCustomGallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/shape_bt_bg"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:height="48dp"
+        android:textSize="16sp"
+        android:text="@string/custom_select_video" />
+
+</LinearLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_internal_storage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/shape_bt_bg"
+        android:layout_marginTop="48dp"
+        android:gravity="center"
+        android:height="48dp"
+        android:textSize="16sp"
+        android:text="@string/access_internal_storage" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_external_private_storage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/shape_bt_bg"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:height="48dp"
+        android:textSize="16sp"
+        android:text="@string/access_external_storage_private_directory" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_external_public_storage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/shape_bt_bg"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:height="48dp"
+        android:textSize="16sp"
+        android:text="@string/access_external_storage_public_directories" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_saf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/shape_bt_bg"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:height="48dp"
+        android:textSize="16sp"
+        android:text="@string/saf" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_select_single_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/shape_bt_bg"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:height="48dp"
+        android:textSize="16sp"
+        android:text="@string/select_single_image" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_select_single_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/shape_bt_bg"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:height="48dp"
+        android:textSize="16sp"
+        android:text="@string/select_single_video" />
+
+</LinearLayout>

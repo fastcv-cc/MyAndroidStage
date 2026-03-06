@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import cc.fastcv.api_adapter.APIAdapterActivity
 import cc.fastcv.file_manager.FileManagerMainActivity
+import cc.fastcv.lib_test.LibTestMainActivity
 import cc.fastcv.stage.StageActivity
 
 class FuncTestDemoActivity : StageActivity() {
@@ -29,6 +30,10 @@ class FuncTestDemoActivity : StageActivity() {
 
         findViewById<AppCompatButton>(R.id.bt2).setOnClickListener {
             startActivity(Intent(this, APIAdapterActivity::class.java))
+        }
+
+        findViewById<AppCompatButton>(R.id.bt3).setOnClickListener {
+            startActivity(Intent(this, LibTestMainActivity::class.java))
         }
 
 

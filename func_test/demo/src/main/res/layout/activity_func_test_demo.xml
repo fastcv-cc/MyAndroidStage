@@ -19,4 +19,10 @@
         android:text="API Adapter"
         android:id="@+id/bt2" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lib Test"
+        android:id="@+id/bt3" />
+
 </LinearLayout>

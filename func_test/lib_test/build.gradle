@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'cc.fastcv.func_test.demo'
+    namespace 'cc.fastcv.lib_test'
     compileSdk {
         version = release(36)
     }
@@ -35,13 +35,8 @@ dependencies {
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
     implementation libs.material
-    implementation libs.androidx.activity
-    implementation libs.androidx.constraintlayout
-    implementation project(':stage')
-    implementation project(':func_test:file_manager')
-    implementation project(':func_test:api_adapter')
-    implementation project(':func_test:lib_test')
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
+    implementation project(':stage')
 }

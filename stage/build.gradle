@@ -36,6 +36,7 @@ dependencies {
     implementation libs.androidx.appcompat
     implementation libs.material
     api project(':base:lib_components')
+    api project(':base:lib_data_box')
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core

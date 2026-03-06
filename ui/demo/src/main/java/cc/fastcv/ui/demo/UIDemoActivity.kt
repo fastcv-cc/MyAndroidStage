@@ -11,6 +11,7 @@ import cc.fastcv.ui.demo.date_switch_view.DateSwitchViewActivity
 import cc.fastcv.ui.demo.exquisite_histogram.ExquisiteHistogramActivity
 import cc.fastcv.ui.demo.flash_text_view.FlashTextViewActivity
 import cc.fastcv.ui.demo.line_number_clock.LineNumberClockActivity
+import cc.fastcv.ui.demo.modern_cardview.ModernCardViewActivity
 
 class UIDemoActivity : StageActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +38,10 @@ class UIDemoActivity : StageActivity() {
 
         findViewById<AppCompatButton>(R.id.bt4).setOnClickListener {
             startActivity(Intent(this, DateSwitchViewActivity::class.java))
+        }
+
+        findViewById<AppCompatButton>(R.id.bt5).setOnClickListener {
+            startActivity(Intent(this, ModernCardViewActivity::class.java))
         }
     }
 }

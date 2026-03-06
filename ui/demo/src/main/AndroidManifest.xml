@@ -7,5 +7,6 @@
         <activity android:name="cc.fastcv.ui.demo.line_number_clock.LineNumberClockActivity" />
         <activity android:name="cc.fastcv.ui.demo.exquisite_histogram.ExquisiteHistogramActivity" />
         <activity android:name="cc.fastcv.ui.demo.date_switch_view.DateSwitchViewActivity" />
+        <activity android:name="cc.fastcv.ui.demo.modern_cardview.ModernCardViewActivity" />
     </application>
 </manifest>

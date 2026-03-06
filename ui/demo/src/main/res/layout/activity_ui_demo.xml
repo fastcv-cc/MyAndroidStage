@@ -30,6 +30,12 @@
         android:id="@+id/bt4"
         android:text="DateSwitchView" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt5"
+        android:text="ModernCardView" />
+
 
 
 </LinearLayout>

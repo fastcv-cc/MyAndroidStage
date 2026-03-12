@@ -3,33 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5"
     tools:context=".MainActivity">
 
+    <!-- LineNumberClockView 时钟显示 -->
+    <cc.fastcv.line_number_clock.LineNumberClockView
+        android:id="@+id/clock_view"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="8dp"
+        android:layout_height="100dp"/>
+
+    <!-- 标题文本 -->
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="UI"
-        android:id="@+id/bt1" />
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="功能导航"
+        android:textColor="#333333"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <!-- RecyclerView 列表 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="功能测试"
-        android:id="@+id/bt2" />
-
-
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        tools:listitem="@layout/item_main_menu" />
 
 </LinearLayout>

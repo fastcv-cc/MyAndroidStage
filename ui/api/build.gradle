@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'cc.fastcv.stage'
+    namespace 'cc.fastcv.ui.api'
     compileSdk {
         version = release(36)
     }
@@ -35,10 +35,10 @@ dependencies {
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
     implementation libs.material
-    api project(':base:lib_components')
-    api project(':base:lib_data_box')
-    api project(':ui:api')
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
+
+    api project(':ui:line_number_clock')
+    api project(':ui:modern_cardview')
 }

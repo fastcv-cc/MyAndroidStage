@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import cc.fastcv.lib_test.data_box.DataBoxLibTestActivity
+import cc.fastcv.lib_test.lib_utils.LibUtilsTestActivity
 import cc.fastcv.stage.StageActivity
 
 class LibTestMainActivity : StageActivity() {
@@ -24,7 +25,9 @@ class LibTestMainActivity : StageActivity() {
         findViewById<AppCompatButton>(R.id.bt1).setOnClickListener {
             startActivity(Intent(this, DataBoxLibTestActivity::class.java))
         }
+        
+        findViewById<AppCompatButton>(R.id.bt2).setOnClickListener {
+            startActivity(Intent(this, LibUtilsTestActivity::class.java))
+        }
     }
-
-
 }

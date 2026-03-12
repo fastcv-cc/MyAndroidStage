@@ -4,5 +4,6 @@
     <application>
         <activity android:name="cc.fastcv.lib_test.LibTestMainActivity" />
         <activity android:name="cc.fastcv.lib_test.data_box.DataBoxLibTestActivity" />
+        <activity android:name="cc.fastcv.lib_test.lib_utils.LibUtilsTestActivity" />
     </application>
 </manifest>

@@ -19,6 +19,7 @@ import java.net.NetworkInterface
 import java.security.MessageDigest
 import java.util.Collections
 import java.util.UUID
+import androidx.core.content.edit
 
 /**
  * 设备标识符获取方法类
@@ -61,8 +62,11 @@ internal class DeviceIdentifierUtil {
         }
 
         deviceId = toMD5(deviceId)
-        context.getSharedPreferences(PREF_SP_NAME, Context.MODE_PRIVATE).edit().putString(
-            PREF_DEVICE_ID, deviceId).apply()
+        context.getSharedPreferences(PREF_SP_NAME, Context.MODE_PRIVATE).edit {
+            putString(
+                PREF_DEVICE_ID, deviceId
+            )
+        }
         return deviceId
     }
 

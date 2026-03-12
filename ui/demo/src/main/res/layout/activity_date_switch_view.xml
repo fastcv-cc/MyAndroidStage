@@ -37,14 +37,58 @@
         android:layout_margin="10dp"
         app:cardCornerRadius="10dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="选中的日期"
-            android:gravity="center"
-            android:id="@+id/tv_show"
-            android:layout_margin="10dp"
-            tools:ignore="HardcodedText" />
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="选中的日期"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:gravity="center"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tv_show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="未选择"
+                android:textSize="20sp"
+                android:textColor="#FF5722"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="详细信息"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tv_selected_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="暂无信息"
+                android:textSize="12sp"
+                android:layout_marginTop="5dp"
+                android:lineSpacingExtra="2dp"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
@@ -67,94 +111,283 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="更改内容大小时会重置tab选项位置"
+                    android:text="📅 日期范围设置"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#2196F3"
                     tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="设置Tab内边距：dp"
+                    android:text="起始日期 (yyyy-MM-dd)"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/ed_start_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="2020-01-01"
+                        android:inputType="date"
+                        tools:ignore="Autofill,HardcodedText" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="结束日期 (yyyy-MM-dd)"
+                    android:textSize="12sp"
+                    tools:ignore="HardcodedText" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/ed_end_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="10dp"
+                        android:hint="2024-12-31"
+                        android:inputType="date"
+                        tools:ignore="Autofill,HardcodedText" />
+
+                    <Button
+                        android:id="@+id/bt_set_today"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="今天"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/bt_set_date_range"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="应用日期范围"
+                    tools:ignore="HardcodedText" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="#E0E0E0" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="⚙️ Tab 尺寸配置"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#2196F3"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="提示：更改尺寸会重置Tab选项位置"
+                    android:textSize="11sp"
+                    android:textColor="#FF9800"
+                    tools:ignore="HardcodedText" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tab内边距"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/tv_margin_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6dp"
+                        android:textColor="#4CAF50"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
 
                 <SeekBar
                     android:id="@+id/sb_margin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:max="30"
                     android:paddingVertical="5dp"
                     android:progress="6" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="设置Tab宽度：dp"
-                    tools:ignore="HardcodedText" />
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tab宽度"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/tv_width_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="160dp"
+                        android:textColor="#4CAF50"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
 
                 <SeekBar
                     android:id="@+id/sb_width"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:max="300"
                     android:paddingVertical="5dp"
                     android:progress="160" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="设置Tab高度：dp"
-                    tools:ignore="HardcodedText" />
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tab高度"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/tv_height_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="40dp"
+                        android:textColor="#4CAF50"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
 
                 <SeekBar
                     android:id="@+id/sb_height"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:max="100"
                     android:paddingVertical="5dp"
                     android:progress="40" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="设置Tab字体大小：sp"
-                    tools:ignore="HardcodedText" />
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tab字体大小"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/tv_text_size_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15sp"
+                        android:textColor="#4CAF50"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
 
                 <SeekBar
                     android:id="@+id/sb_text_size"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:max="30"
                     android:paddingVertical="5dp"
-                    android:progress="12" />
+                    android:progress="15" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="设置周文本/日期文本间距：dp"
-                    tools:ignore="HardcodedText" />
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="周文本/日期间距"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/tv_week_margin_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10dp"
+                        android:textColor="#4CAF50"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
 
                 <SeekBar
                     android:id="@+id/sb_week_text_margin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:max="30"
                     android:paddingVertical="5dp"
                     android:progress="10" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="#E0E0E0" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="设置日tab文本与颜色"
+                    android:text="🎨 文本与颜色配置"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#2196F3"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="日Tab文本"
                     tools:ignore="HardcodedText" />
 
                 <LinearLayout
@@ -166,26 +399,25 @@
                         android:id="@+id/ed_tab1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:hint="日文本"
-                        tools:ignore="HardcodedText" />
+                        android:hint="例如：Day / 日"
+                        tools:ignore="Autofill,HardcodedText" />
 
                     <Button
                         android:id="@+id/bt_sync_text_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="同步"
+                        android:text="应用"
                         tools:ignore="HardcodedText" />
 
                 </LinearLayout>
-
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="设置月tab文本与颜色"
+                    android:text="月Tab文本"
                     tools:ignore="HardcodedText" />
 
                 <LinearLayout
@@ -197,16 +429,16 @@
                         android:id="@+id/ed_tab2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:hint="月文本"
-                        tools:ignore="HardcodedText" />
+                        android:hint="例如：Month / 月"
+                        tools:ignore="Autofill,HardcodedText" />
 
                     <Button
                         android:id="@+id/bt_sync_text_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="同步"
+                        android:text="应用"
                         tools:ignore="HardcodedText" />
 
                 </LinearLayout>
@@ -215,7 +447,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="设置选中tab文本颜色"
+                    android:text="选中Tab文字颜色 (十六进制)"
                     tools:ignore="HardcodedText" />
 
                 <LinearLayout
@@ -223,22 +455,31 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#"
+                        android:textSize="16sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="5dp"
+                        tools:ignore="HardcodedText" />
+
                     <EditText
                         android:id="@+id/ed_select_color"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:text="FF0000"
+                        android:text="F9F9F9"
+                        android:hint="例如：F9F9F9"
                         tools:ignore="Autofill,HardcodedText,TextFields" />
 
                     <Button
                         android:id="@+id/bt_sync_select_color"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="同步"
+                        android:text="应用"
                         tools:ignore="HardcodedText" />
-
 
                 </LinearLayout>
 
@@ -246,7 +487,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="设置未选中tab文本颜色"
+                    android:text="未选中Tab文字颜色 (十六进制)"
                     tools:ignore="HardcodedText" />
 
                 <LinearLayout
@@ -254,29 +495,55 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#"
+                        android:textSize="16sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="5dp"
+                        tools:ignore="HardcodedText" />
+
                     <EditText
                         android:id="@+id/ed_color"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:text="00FF00"
+                        android:text="61003324"
+                        android:hint="例如：61003324"
                         tools:ignore="Autofill,HardcodedText,TextFields" />
 
                     <Button
                         android:id="@+id/bt_sync_color"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="同步"
+                        android:text="应用"
                         tools:ignore="HardcodedText" />
 
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="#E0E0E0" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="⚡ 动画与行为配置"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#2196F3"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="设置动画时长（毫秒）"
+                    android:text="动画时长 (毫秒)"
                     tools:ignore="HardcodedText" />
 
                 <LinearLayout
@@ -288,16 +555,18 @@
                         android:id="@+id/ed_duration"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_weight="1"
                         android:text="250"
+                        android:inputType="number"
+                        android:hint="例如：250"
                         tools:ignore="Autofill,HardcodedText,TextFields" />
 
                     <Button
                         android:id="@+id/bt_sync_duration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="同步"
+                        android:text="应用"
                         tools:ignore="HardcodedText" />
 
                 </LinearLayout>
@@ -305,13 +574,15 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="设置每周开始"
+                    android:layout_marginTop="15dp"
+                    android:text="周起始日"
                     tools:ignore="HardcodedText" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -321,11 +592,11 @@
                         tools:ignore="HardcodedText" />
 
                     <androidx.appcompat.widget.SwitchCompat
-                        android:layout_width="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
                         android:id="@+id/sc_week_start"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -338,35 +609,53 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="设备布局方向"
+                    android:layout_marginTop="15dp"
+                    android:text="布局方向"
                     tools:ignore="HardcodedText" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="从左到右"
+                        android:text="从左到右 (LTR)"
                         tools:ignore="HardcodedText" />
 
                     <androidx.appcompat.widget.SwitchCompat
-                        android:layout_width="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
                         android:id="@+id/sc_ltr"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="从右到左"
+                        android:text="从右到左 (RTL)"
                         tools:ignore="HardcodedText" />
 
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="#E0E0E0" />
+
+                <Button
+                    android:id="@+id/bt_reset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🔄 重置所有配置"
+                    android:backgroundTint="#FF5722"
+                    android:textColor="#FFFFFF"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 

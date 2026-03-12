@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.toColorInt
+import cc.fastcv.flash_text_view.FlashTextView
 
 class ModernCardView @JvmOverloads constructor(
     context: Context,
@@ -19,14 +20,12 @@ class ModernCardView @JvmOverloads constructor(
 
     private lateinit var containerLayout: ConstraintLayout
     private lateinit var iconImageView: ImageView
-    private lateinit var titleTextView: TextView
+    private lateinit var titleTextView: FlashTextView
     private lateinit var subtitleTextView: TextView
     private lateinit var backgroundGradient: View
 
     private var currentGradientIndex = 0
     private val gradientBackgrounds = arrayOf(
-        intArrayOf(0xFF667eea.toInt(), 0xFF764ba2.toInt()),
-        intArrayOf(0xFF4facfe.toInt(), 0xFF00f2fe.toInt()),
         intArrayOf(0xFFfa709a.toInt(), 0xFFfee140.toInt()),
         intArrayOf(0xFF43e97b.toInt(), 0xFF38f9d7.toInt()),
         intArrayOf(0xFFf093fb.toInt(), 0xFFf5576c.toInt())
@@ -93,7 +92,7 @@ class ModernCardView @JvmOverloads constructor(
         }
 
         // 创建标题
-        titleTextView = TextView(context).apply {
+        titleTextView = FlashTextView(context).apply {
             id = generateViewId()
             layoutParams = ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.WRAP_CONTENT,

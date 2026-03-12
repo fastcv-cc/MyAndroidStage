@@ -9,6 +9,9 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
     }
 }
 dependencyResolutionManagement {
@@ -16,6 +19,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
     }
 }
 
@@ -40,3 +46,4 @@ include ':ui:modern_cardview'
 include ':ui:round_progress_bar'
 include ':ui:api'
 include ':base:lib_utils'
+include ':func_test:xposed'

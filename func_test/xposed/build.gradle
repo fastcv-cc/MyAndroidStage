@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'cc.fastcv.func_test.demo'
+    namespace 'cc.fastcv.xposed'
     compileSdk {
         version = release(36)
     }
@@ -32,17 +32,6 @@ android {
 }
 
 dependencies {
-    implementation libs.androidx.core.ktx
-    implementation libs.androidx.appcompat
-    implementation libs.material
-    implementation libs.androidx.activity
-    implementation libs.androidx.constraintlayout
-    implementation project(':stage')
-    implementation project(':func_test:file_manager')
-    implementation project(':func_test:api_adapter')
-    implementation project(':func_test:lib_test')
-    implementation project(':func_test:xposed')
-    testImplementation libs.junit
-    androidTestImplementation libs.androidx.junit
-    androidTestImplementation libs.androidx.espresso.core
+    compileOnly 'de.robv.android.xposed:api:82'
+    compileOnly 'de.robv.android.xposed:api:82:sources'
 }

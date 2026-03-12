@@ -1,7 +1,6 @@
-package cc.fastcv.api_adapter.api
+package cc.fastcv.lib_utils
 
 import android.view.View
-import cc.fastcv.api_adapter.R
 
 /**
  * get set

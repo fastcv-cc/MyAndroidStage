@@ -1,8 +1,7 @@
-package cc.fastcv.api_adapter.api
+package cc.fastcv.lib_utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Context.TELEPHONY_SERVICE
 import android.content.Intent
 import android.net.Uri
 import android.net.wifi.WifiInfo
@@ -10,7 +9,7 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.provider.Settings
 import android.telephony.TelephonyManager
-import android.text.TextUtils.isEmpty
+import android.text.TextUtils
 import android.util.Log
 import java.io.BufferedReader
 import java.io.File
@@ -18,7 +17,8 @@ import java.io.FileReader
 import java.io.IOException
 import java.net.NetworkInterface
 import java.security.MessageDigest
-import java.util.*
+import java.util.Collections
+import java.util.UUID
 
 /**
  * 设备标识符获取方法类
@@ -32,7 +32,7 @@ internal class DeviceIdentifierUtil {
 
     fun getDeviceId(context: Context): String {
         var deviceId =
-            context.getSharedPreferences(PREF_SP_NAME,Context.MODE_PRIVATE).getString(PREF_DEVICE_ID, "")?:""
+            context.getSharedPreferences(PREF_SP_NAME, Context.MODE_PRIVATE).getString(PREF_DEVICE_ID, "")?:""
 
         if (deviceId.isNotEmpty()) {
             return deviceId
@@ -61,7 +61,7 @@ internal class DeviceIdentifierUtil {
         }
 
         deviceId = toMD5(deviceId)
-        context.getSharedPreferences(PREF_SP_NAME,Context.MODE_PRIVATE).edit().putString(
+        context.getSharedPreferences(PREF_SP_NAME, Context.MODE_PRIVATE).edit().putString(
             PREF_DEVICE_ID, deviceId).apply()
         return deviceId
     }
@@ -71,7 +71,7 @@ internal class DeviceIdentifierUtil {
     private fun getIMEI(context: Context): String {
         return try {
             val telephonyManager =
-                context.applicationContext.getSystemService(TELEPHONY_SERVICE) as TelephonyManager
+                context.applicationContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
             telephonyManager.deviceId ?: ""
         } catch (e: Exception) {
             ""
@@ -178,7 +178,7 @@ internal class DeviceIdentifierUtil {
             return null
         }
         mac = info.macAddress
-        if (!isEmpty(mac)) {
+        if (!TextUtils.isEmpty(mac)) {
             mac = mac.uppercase()
         }
         return mac
@@ -221,7 +221,7 @@ internal class DeviceIdentifierUtil {
                 uniqueIdentificationCode =
                     Settings.System.getString(context.contentResolver, "uniqueIdentificationCode")
             }
-            if (isEmpty(uniqueIdentificationCode)) {
+            if (TextUtils.isEmpty(uniqueIdentificationCode)) {
                 uniqueIdentificationCode = "${System.currentTimeMillis()}${
                     UUID.randomUUID().toString().substring(20)
                 }".replace("-", "")

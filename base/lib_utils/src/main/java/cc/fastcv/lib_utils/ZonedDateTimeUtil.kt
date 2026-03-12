@@ -1,4 +1,4 @@
-package cc.fastcv.api_adapter.api
+package cc.fastcv.lib_utils
 
 import java.text.ParseException
 import java.text.SimpleDateFormat

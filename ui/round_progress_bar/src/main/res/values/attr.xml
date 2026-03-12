@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundProgressBar">
+        <!--显示宽度-->
+        <attr name="showWidth" format="integer|dimension" />
+        <!--背景颜色-->
+        <attr name="rpbBackground" format="color" />
+        <!--进度条颜色-->
+        <attr name="rpbProgressColor" format="color" />
+        <attr name="rpbProgress" format="integer" />
+        <attr name="rpbMax" format="integer" />
+    </declare-styleable>
+</resources>

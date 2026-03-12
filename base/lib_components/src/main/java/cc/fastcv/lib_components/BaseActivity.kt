@@ -7,6 +7,7 @@ import android.content.res.TypedArray
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import java.lang.reflect.Field
 import java.lang.reflect.Method

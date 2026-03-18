@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'cc.fastcv.ui.demo'
+    namespace 'cc.fastcv.exquisite_linechart'
     compileSdk {
         version = release(36)
     }
@@ -35,14 +35,6 @@ dependencies {
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
     implementation libs.material
-    implementation project(':base:lib_components')
-    implementation project(':ui:flash_text_view')
-    implementation project(':stage')
-    implementation project(':ui:line_number_clock')
-    implementation project(':ui:exquisite_histogram')
-    implementation project(':ui:date_switch_view')
-    implementation project(':ui:modern_cardview')
-    implementation project(':ui:exquisite_linechart')
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core

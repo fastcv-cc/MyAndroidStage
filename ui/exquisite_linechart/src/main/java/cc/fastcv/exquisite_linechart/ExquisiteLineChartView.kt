@@ -2,6 +2,7 @@ package cc.fastcv.exquisite_linechart
 
 import android.content.Context
 import android.graphics.PointF
+import android.graphics.Shader
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.widget.FrameLayout
@@ -140,6 +141,51 @@ class ExquisiteLineChartView @JvmOverloads constructor(
 
     fun setSideBarWith(value: Float) {
         lineChartParams.sideWayBarWidth = lineChartParams.dp2px(value)
+        refreshView()
+    }
+
+    fun setChartLineColor(color: Int) {
+        lineChartParams.chartLineColor = color
+        refreshView()
+    }
+
+    fun setCentralLineWidth(value: Float) {
+        lineChartParams.centralLineWidth = lineChartParams.dp2px(value)
+        refreshView()
+    }
+
+    fun setCentralLineColor(color: Int) {
+        lineChartParams.centralLineColor = color
+        refreshView()
+    }
+
+    fun setXAxisTouchRange(range: Float) {
+        lineChartParams.xAxisTouchRange = range
+        refreshView()
+    }
+
+    fun setShader(shader: Shader?) {
+        lineChartParams.shader = shader
+        refreshView()
+    }
+
+    fun setXAxisLabelTextColor(color: Int) {
+        lineChartParams.xAxisLabelTextColor = color
+        refreshView()
+    }
+
+    fun setXAxisLabelTextSize(size: Float) {
+        lineChartParams.xAxisLabelTextSize = size
+        refreshView()
+    }
+
+    fun setYAxisLabelTextColor(color: Int) {
+        lineChartParams.yAxisLabelTextColor = color
+        refreshView()
+    }
+
+    fun setYAxisLabelTextSize(size: Float) {
+        lineChartParams.yAxisLabelTextSize = size
         refreshView()
     }
 

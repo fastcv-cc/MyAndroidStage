@@ -204,11 +204,11 @@ internal class InnerLineChartView @JvmOverloads constructor(
         )
         shaderPath.lineTo(
             width.toFloat(),
-            -params.chartLineWidth / 2.0f
+            0f
         )
         shaderPath.lineTo(
             0f,
-            -params.chartLineWidth / 2.0f
+            0f
         )
         shaderPath.close()
         coordinator.onLineChartInfoSelected(lastSelectIndex, null)
@@ -229,13 +229,14 @@ internal class InnerLineChartView @JvmOverloads constructor(
                     canvas.scale(-1f, -1f)
                 }
                 canvas.translate(params.chartLineWidth / 2.0f, params.chartLineWidth / 2.0f)
-                loadDrawLinePaintConfig()
-                drawPath(lineChartPath, paint)
                 if (params.shader != null) {
+                    loadDrawLinePaintConfig()
+                    paint.style = Paint.Style.FILL
                     paint.shader = params.shader
                     drawPath(shaderPath, paint)
                 }
                 loadDrawLinePaintConfig()
+                drawPath(lineChartPath, paint)
                 loadDrawCentralLinePaintConfig()
                 //画分割线
                 drawLine(

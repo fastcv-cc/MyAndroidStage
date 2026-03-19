@@ -51,6 +51,15 @@ class ExquisiteLineChartActivity : StageActivity() {
         initSideBarWidth()
         initDataSync()
         initLtr()
+        initChartLineColor()
+        initCentralLineWidth()
+        initCentralLineColor()
+        initTouchRange()
+        initShader()
+        initXAxisLabelTextSize()
+        initXAxisLabelTextColor()
+        initYAxisLabelTextSize()
+        initYAxisLabelTextColor()
         val data = RunningDataSimulator.generateRunData(
             totalMinutes = 30,
             minPace = 390,
@@ -70,7 +79,14 @@ class ExquisiteLineChartActivity : StageActivity() {
         val xMin = xList.minOf { it }
         val xLabelList = mutableListOf<String>()
         for (i in 0..5) {
-            xLabelList.add(String.format(Locale.ENGLISH, "%d:%02d", (i * avgX / 60).toInt(), (i * avgX % 60).toInt()))
+            xLabelList.add(
+                String.format(
+                    Locale.ENGLISH,
+                    "%d:%02d",
+                    (i * avgX / 60).toInt(),
+                    (i * avgX % 60).toInt()
+                )
+            )
         }
 
 
@@ -115,6 +131,162 @@ class ExquisiteLineChartActivity : StageActivity() {
             } else {
                 histogram.layoutDirection = View.LAYOUT_DIRECTION_LTR
             }
+        }
+    }
+
+    private fun initChartLineColor() {
+        findViewById<Button>(R.id.bt_line_color_green).setOnClickListener {
+            histogram.setChartLineColor("#026543".toColorInt())
+        }
+        findViewById<Button>(R.id.bt_line_color_red).setOnClickListener {
+            histogram.setChartLineColor(Color.RED)
+        }
+        findViewById<Button>(R.id.bt_line_color_blue).setOnClickListener {
+            histogram.setChartLineColor(Color.BLUE)
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initCentralLineWidth() {
+        findViewById<SeekBar>(R.id.sb_central_line_width).apply {
+            setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    histogram.setCentralLineWidth(progress.toFloat())
+                    this@ExquisiteLineChartActivity.findViewById<TextView>(R.id.tv_central_line_width).text =
+                        "中间线线宽：${progress}dp"
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            })
+        }
+    }
+
+    private fun initCentralLineColor() {
+        findViewById<Button>(R.id.bt_central_color_gray).setOnClickListener {
+            histogram.setCentralLineColor("#C9CDC6".toColorInt())
+        }
+        findViewById<Button>(R.id.bt_central_color_red).setOnClickListener {
+            histogram.setCentralLineColor(Color.RED)
+        }
+        findViewById<Button>(R.id.bt_central_color_blue).setOnClickListener {
+            histogram.setCentralLineColor(Color.BLUE)
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initTouchRange() {
+        findViewById<SeekBar>(R.id.sb_touch_range).apply {
+            setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    histogram.setXAxisTouchRange(progress.toFloat())
+                    this@ExquisiteLineChartActivity.findViewById<TextView>(R.id.tv_touch_range).text =
+                        "选择点x轴扩充范围：$progress"
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            })
+        }
+    }
+
+    private fun initShader() {
+        findViewById<Button>(R.id.bt_shader_none).setOnClickListener {
+            histogram.setShader(null)
+        }
+        findViewById<Button>(R.id.bt_shader_blue).setOnClickListener {
+            histogram.setShader(
+                LinearGradient(
+                    0f, 0f, 0f, 400f,
+                    "#330000FF".toColorInt(),
+                    Color.TRANSPARENT,
+                    Shader.TileMode.CLAMP
+                )
+            )
+        }
+        findViewById<Button>(R.id.bt_shader_green).setOnClickListener {
+            histogram.setShader(
+                LinearGradient(
+                    0f, 0f, 0f, histogram.height * 1.0f,
+                    "#3300FF00".toColorInt(),
+                    Color.TRANSPARENT,
+                    Shader.TileMode.CLAMP
+                )
+            )
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initXAxisLabelTextSize() {
+        findViewById<SeekBar>(R.id.sb_x_label_text_size).apply {
+            setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    val size = progress.coerceAtLeast(1).toFloat()
+                    histogram.setXAxisLabelTextSize(size)
+                    this@ExquisiteLineChartActivity.findViewById<TextView>(R.id.tv_x_label_text_size).text =
+                        "X轴标签文字大小：${size.toInt()}sp"
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            })
+        }
+    }
+
+    private fun initXAxisLabelTextColor() {
+        findViewById<Button>(R.id.bt_x_label_color_default).setOnClickListener {
+            histogram.setXAxisLabelTextColor("#6F756B".toColorInt())
+        }
+        findViewById<Button>(R.id.bt_x_label_color_red).setOnClickListener {
+            histogram.setXAxisLabelTextColor(Color.RED)
+        }
+        findViewById<Button>(R.id.bt_x_label_color_blue).setOnClickListener {
+            histogram.setXAxisLabelTextColor(Color.BLUE)
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initYAxisLabelTextSize() {
+        findViewById<SeekBar>(R.id.sb_y_label_text_size).apply {
+            setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    val size = progress.coerceAtLeast(1).toFloat()
+                    histogram.setYAxisLabelTextSize(size)
+                    this@ExquisiteLineChartActivity.findViewById<TextView>(R.id.tv_y_label_text_size).text =
+                        "Y轴标签文字大小：${size.toInt()}sp"
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            })
+        }
+    }
+
+    private fun initYAxisLabelTextColor() {
+        findViewById<Button>(R.id.bt_y_label_color_default).setOnClickListener {
+            histogram.setYAxisLabelTextColor("#6F756B".toColorInt())
+        }
+        findViewById<Button>(R.id.bt_y_label_color_red).setOnClickListener {
+            histogram.setYAxisLabelTextColor(Color.RED)
+        }
+        findViewById<Button>(R.id.bt_y_label_color_blue).setOnClickListener {
+            histogram.setYAxisLabelTextColor(Color.BLUE)
         }
     }
 

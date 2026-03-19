@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <cc.fastcv.exquisite_linechart.TipView
+        android:id="@+id/tipView"
+        android:layout_width="96dp"
+        android:layout_height="44dp"
+        android:background="@drawable/ui_shape_line_chart_tip_bg"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="63dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingEnd="16dp">
+
+            <cc.fastcv.exquisite_linechart.SidewaysBarView
+                android:id="@+id/sidewaysBarView"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical" />
+
+            <cc.fastcv.exquisite_linechart.InnerLineChartView
+                android:id="@+id/lineChartView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <!--底部数值指示栏-->
+        <cc.fastcv.exquisite_linechart.BottomIndicatorBarView
+            android:id="@+id/bottomIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+    <cc.fastcv.exquisite_linechart.PointSelectIndicatorView
+        android:id="@+id/pointSelectIndicatorView"
+        android:layout_width="12dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="44dp"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
+</FrameLayout>

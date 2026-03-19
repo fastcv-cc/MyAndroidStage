@@ -1,173 +1,188 @@
 package cc.fastcv.exquisite_linechart
 
 import android.content.Context
-import android.graphics.CornerPathEffect
+import android.graphics.PointF
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.widget.FrameLayout
-import java.util.Locale
+import cc.fastcv.exquisite_linechart.adapter.TipAdapter
 
-class ExquisiteLineChartView : FrameLayout, LineChartCoordinatorCallback {
-    constructor(context: Context) : super(context) {
-        initView(context, null)
-    }
+class ExquisiteLineChartView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : FrameLayout(context, attrs, defStyleAttr) {
+    private val lineChartParams = ExquisiteLineChartParams(context)
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        initView(context, attrs)
-    }
+    //底部指示栏(x轴)
+    private var bottomIndicatorBarView: BottomIndicatorBarView
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
-        initView(context, attrs)
-    }
+    //折线图View
+    private var lineChartView: InnerLineChartView
 
-    constructor(
-        context: Context,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
-    ) : super(context, attrs, defStyleAttr, defStyleRes) {
-        initView(context, attrs)
-    }
+    //选中效果View
+    private var pointSelectIndicatorView: PointSelectIndicatorView
 
-    private lateinit var histogramView: ExquisiteLineChartViewExt
+    //侧边指示栏(y轴)
+    private var sidewaysBarView: SidewaysBarView
 
-    companion object {
-        private const val DEFAULT_EQUAL_PARTS_SIZE = 4
-    }
+    //提示View
+    private var tipView: TipView
 
-    /**
-     * 等分值
-     */
-    private var equalPartsSize = DEFAULT_EQUAL_PARTS_SIZE
+    //是否已经触发了刷新
+    private var isRefreshing = false
 
-    private lateinit var sidewaysBarController: SidewaysBarController
-    private lateinit var bottomIndicatorBarController: BottomIndicatorBarController
-    private lateinit var selectViewController: SelectViewController
-    private lateinit var tipViewController: TipViewController
-    private var adapter: TipAdapter = DefaultTipAdapter()
+    private val bottomIndicatorBarViewCoordinator =
+        object : BottomIndicatorBarView.BottomIndicatorBarViewCoordinator {
+            override fun getInnerLineChartViewWidth(): Float {
+                return this@ExquisiteLineChartView.lineChartView.width.toFloat()
+            }
 
-    private fun initView(context: Context, attrs: AttributeSet?) {
-        inflate(context, R.layout.ui_line_chart_view_ext_layout, this)
-        initHistogramView()
-    }
-
-    private fun initHistogramView() {
-        histogramView = findViewById(R.id.ui_histogram)
-        histogramView.setLineChartSelectCallback(this)
-        sidewaysBarController = SidewaysBarController(this)
-        bottomIndicatorBarController = BottomIndicatorBarController(this)
-        selectViewController = SelectViewController(this)
-        tipViewController = TipViewController(this)
-        setBottomSpaceHeight(10f)
-    }
-
-    override fun onLineChartSelect(position: Int, info: LineChartInfo?) {
-        selectViewController.moveTo(position)
-        tipViewController.moveTo(position)
-    }
-
-    override fun onLineChartCalc() {
-        bottomIndicatorBarController.buildBottomIndicatorBar()
-        selectViewController.rePosition()
-        tipViewController.rePosition()
-    }
-
-    fun setEqualPartsSize(size: Int) {
-        equalPartsSize = size
-        histogramView.setEqualPartsSize(equalPartsSize)
-        histogramView.refreshView()
-        updateSidewaysBar()
-    }
-
-    fun setData(data: List<Pair<Int, Int>>) {
-        Log.d("xcl_debug", "setData: $data")
-        histogramView.setEqualPartsSize(equalPartsSize)
-        histogramView.setData(data)
-        updateSidewaysBar()
-        val bottomIndicatorList = mutableListOf<Int>()
-        for (i in 0..5) {
-            bottomIndicatorList.add(histogramView.getMaxSecondValue() * i / 5)
         }
-        bottomIndicatorBarController.setIndicatorList(bottomIndicatorList)
+
+    private val innerLineChartViewCoordinator =
+        object : InnerLineChartView.InnerLineChartViewCoordinator {
+            override fun onLineChartInfoSelected(
+                position: Int,
+                info: LineChartInfo?
+            ) {
+                pointSelectIndicatorView.moveTo(position)
+                tipView.moveTo(position)
+            }
+        }
+
+    private val pointSelectIndicatorViewCoordinator =
+        object : PointSelectIndicatorView.PointSelectIndicatorViewCoordinator {
+            override fun getRelativeX(index: Int): Float {
+                return this@ExquisiteLineChartView.getRelativeX(index)
+            }
+
+            override fun getRelativeHeight(index: Int): Float {
+                return this@ExquisiteLineChartView.getRelativeHeight(index)
+            }
+        }
+
+    private val tipViewCoordinator = object : TipView.TipViewCoordinator {
+        override fun getDataInfoByIndex(index: Int): LineChartInfo? {
+            return lineChartView.getDataInfoByIndex(index)
+        }
+
+        override fun getExquisiteLineChartViewWidth(): Float {
+            return this@ExquisiteLineChartView.width.toFloat()
+        }
+
+        override fun getRelativeX(index: Int): Float {
+            return this@ExquisiteLineChartView.getRelativeX(index)
+        }
+    }
+
+    init {
+        inflate(context, R.layout.layout_exquisite_line_chart_view, this)
+        bottomIndicatorBarView = findViewById(R.id.bottomIndicator)
+        bottomIndicatorBarView.bindView(lineChartParams, bottomIndicatorBarViewCoordinator)
+
+        lineChartView = findViewById(R.id.lineChartView)
+        lineChartView.bindView(lineChartParams, innerLineChartViewCoordinator)
+
+        pointSelectIndicatorView = findViewById(R.id.pointSelectIndicatorView)
+        pointSelectIndicatorView.bindView(lineChartParams, pointSelectIndicatorViewCoordinator)
+
+        sidewaysBarView = findViewById(R.id.sidewaysBarView)
+        sidewaysBarView.bindView(lineChartParams)
+
+        tipView = findViewById(R.id.tipView)
+        tipView.bindView(lineChartParams, tipViewCoordinator)
+    }
+
+
+    //设置数据源
+    fun setPoints(points: List<PointF>) {
+        lineChartParams.points.clear()
+        lineChartParams.points.addAll(points)
+        refreshView()
+    }
+
+    fun setXAxisParams(labels: List<String>, min: Float, max: Float) {
+        lineChartParams.divideEquallyXAxisLabelList.clear()
+        lineChartParams.divideEquallyXAxisLabelList.addAll(labels)
+        lineChartParams.xAxisMaxValue = max
+        lineChartParams.xAxisMinValue = min
+        refreshView()
+    }
+
+    fun setYAxisParams(labels: List<String>, min: Float, max: Float) {
+        lineChartParams.divideEquallyYAxisLabelList.clear()
+        lineChartParams.divideEquallyYAxisLabelList.addAll(labels)
+        lineChartParams.yAxisMaxValue = max
+        lineChartParams.yAxisMinValue = min
+        refreshView()
     }
 
     fun setTipAdapter(adapter: TipAdapter) {
-        this.adapter = adapter
-        tipViewController.rePosition()
+        lineChartParams.adapter = adapter
+        tipView.refreshView()
+    }
+
+    fun setLineChartRadius(radius: Float) {
+        lineChartParams.lineChartRadius = lineChartParams.dp2px(radius)
+        refreshView()
+    }
+
+    fun setBottomSpaceHeight(height: Float) {
+        lineChartParams.bottomSpaceHeight = lineChartParams.dp2px(height)
+        refreshView()
+    }
+
+    fun setLineChartWidth(value: Float) {
+        lineChartParams.chartLineWidth = lineChartParams.dp2px(value)
+        refreshView()
+    }
+
+    fun setSideBarWith(value: Float) {
+        lineChartParams.sideWayBarWidth = lineChartParams.dp2px(value)
+        refreshView()
     }
 
     override fun setLayoutDirection(layoutDirection: Int) {
         super.setLayoutDirection(layoutDirection)
-        histogramView.refreshView()
+        refreshView()
     }
 
-    private fun updateSidewaysBar() {
-        //获取计算之后的最大值
-        val minValue = histogramView.getMinFirstValue()
-        val maxValue = histogramView.getMaxFirstValue()
-        val equalPartsList = mutableListOf<String>()
-        for (i in 0..equalPartsSize) {
-            equalPartsList.add(fixRangeText(minValue + (maxValue - minValue) * i / equalPartsSize))
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        refreshView()
+    }
+
+
+    private fun refreshView() {
+        if (isRefreshing) {
+            return
         }
-        sidewaysBarController.setSideWayBarTextList(equalPartsList)
-    }
-
-    private fun fixRangeText(value: Int): String {
-        val minute = value / 60
-        val second = value % 60
-        return String.format(Locale.ENGLISH, "%d:%02d", minute, second)
-    }
-
-    fun setLineChartWidth(width: Float) {
-        histogramView.setLineChartWidth(width)
-    }
-
-    fun setPathEffect(effect: Float) {
-        histogramView.setPathEffect(effect)
-    }
-
-
-    fun setBottomSpaceHeight(height: Float) {
-        histogramView.setBottomSpaceHeight(height)
-        sidewaysBarController.setBottomSpaceHeight(height)
-    }
-
-    fun setSideBarWith(width: Int) {
-        sidewaysBarController.setSideBarWith(width)
+        isRefreshing = true
+        post {
+            isRefreshing = false
+            lineChartView.refreshView()
+            bottomIndicatorBarView.refreshView()
+            pointSelectIndicatorView.refreshView()
+            sidewaysBarView.refreshView()
+            tipView.refreshView()
+        }
     }
 
     /**
-     * 根据柱状图属性计算底部指示器的X轴偏移量
+     * 根据柱状图属性计算底部指示器相对于整体View的X轴偏移量
      */
-    fun getRelativeX(index: Int): Float {
-        val xbyPosition = histogramView.getXbyPosition(index)
-        val sideBarWith = sidewaysBarController.getSideBarWith()
-        return xbyPosition + sideBarWith
+    internal fun getRelativeX(index: Int): Float {
+        val xbyPosition = lineChartView.getXbyPosition(index)
+        return xbyPosition + lineChartParams.sideWayBarWidth
     }
 
     fun getRelativeHeight(index: Int): Float {
-        val ybyPosition = histogramView.getYbyPosition(index)
-        return histogramView.height - ybyPosition + TypedValue.applyDimension(
+        val ybyPosition = lineChartView.getYbyPosition(index)
+        return lineChartView.height - ybyPosition + TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
-            24f,
+            25f,
             context.resources.displayMetrics
-        )
+        ) - 0.5f
     }
-
-    fun getTipAdapter(): TipAdapter {
-        return adapter
-    }
-
-    fun getDataInfoByIndex(index: Int): LineChartInfo? {
-        return histogramView.getDataInfoByIndex(index)
-    }
-
-    internal fun getSideBarWith() = sidewaysBarController.getSideBarWith()
-
-    internal fun getHistogramViewWith() = histogramView.width
 }

@@ -1,6 +1,10 @@
 package cc.fastcv.ui.demo.exquisite_linechart
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.LinearGradient
+import android.graphics.PointF
+import android.graphics.Shader
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -10,21 +14,25 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import cc.fastcv.exquisite_linechart.ExquisiteLineChartView
 import cc.fastcv.stage.StageActivity
 import cc.fastcv.ui.demo.R
+import java.util.Locale
 
 class ExquisiteLineChartActivity : StageActivity() {
 
     private lateinit var histogram: ExquisiteLineChartView
 
-    val data = RunningDataSimulator.generateRunData(
-        totalMinutes = 30,
-        minPace = 390,
-        maxPace = 460
-    )
+//    private var shader = LinearGradient(
+//        0f, 0f,
+//        0f, height.toFloat(),
+//        "#330000FF".toColorInt(),
+//        Color.TRANSPARENT,
+//        Shader.TileMode.CLAMP
+//    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,13 +45,53 @@ class ExquisiteLineChartActivity : StageActivity() {
         }
 
         histogram = findViewById(R.id.histogram)
-        histogram.setData(data)
+
 
         initHistogramWidth()
         initSideBarWidth()
-        initSyncEqualSize()
         initDataSync()
         initLtr()
+        val data = RunningDataSimulator.generateRunData(
+            totalMinutes = 30,
+            minPace = 390,
+            maxPace = 460
+        )
+        setData(data)
+    }
+
+    private fun setData(data: List<PointF>) {
+        //时间
+        val xList = data.map { it.x }
+        //配速
+        val yList = data.map { it.y }
+
+        val avgX = xList.last() / 5.0f
+        val xMax = xList.maxOf { it }
+        val xMin = xList.minOf { it }
+        val xLabelList = mutableListOf<String>()
+        for (i in 0..5) {
+            xLabelList.add(String.format(Locale.ENGLISH, "%d:%02d", (i * avgX / 60).toInt(), (i * avgX % 60).toInt()))
+        }
+
+
+        val yMax = yList.maxOf { it }
+        val yMin = yList.minOf { it }
+        val avgY = (yMax - yMin) / 4.0f
+        val yLabelList = mutableListOf<String>()
+        for (i in 0..4) {
+            yLabelList.add(
+                String.format(
+                    Locale.ENGLISH,
+                    "%d:%02d",
+                    ((i * avgY + yMin) / 60).toInt(),
+                    ((i * avgY + yMin) % 60).toInt()
+                )
+            )
+        }
+
+        histogram.setXAxisParams(xLabelList, xMin, xMax)
+        histogram.setYAxisParams(yLabelList, yMin, yMax)
+        histogram.setPoints(data)
     }
 
     private fun initDataSync() {
@@ -56,7 +104,7 @@ class ExquisiteLineChartActivity : StageActivity() {
                 minPace = minPace,
                 maxPace = maxPace
             )
-            histogram.setData(newData)
+            setData(newData)
         }
     }
 
@@ -70,17 +118,6 @@ class ExquisiteLineChartActivity : StageActivity() {
         }
     }
 
-    private fun initSyncEqualSize() {
-        findViewById<Button>(R.id.bt_sync_equal_size).setOnClickListener {
-            val equalSize = findViewById<EditText>(R.id.ed_equal_size).text.toString()
-            try {
-                val size = equalSize.toInt()
-                histogram.setEqualPartsSize(size)
-            } catch (e: Exception) {
-                Toast.makeText(this, "数据格式错误", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 
     private fun initSideBarWidth() {
         findViewById<SeekBar>(R.id.sb_side_bar_width).apply {
@@ -90,7 +127,7 @@ class ExquisiteLineChartActivity : StageActivity() {
                     progress: Int,
                     fromUser: Boolean
                 ) {
-                    histogram.setSideBarWith(progress)
+                    histogram.setSideBarWith(progress * 1.0f)
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -110,7 +147,8 @@ class ExquisiteLineChartActivity : StageActivity() {
                     fromUser: Boolean
                 ) {
                     histogram.setLineChartWidth(progress.toFloat())
-                    this@ExquisiteLineChartActivity.findViewById<TextView>(R.id.tv1).text = "设置折线宽度：${progress}dp"
+                    this@ExquisiteLineChartActivity.findViewById<TextView>(R.id.tv1).text =
+                        "设置折线宽度：${progress}dp"
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -127,8 +165,9 @@ class ExquisiteLineChartActivity : StageActivity() {
                     progress: Int,
                     fromUser: Boolean
                 ) {
-                    histogram.setPathEffect(progress.toFloat())
-                    this@ExquisiteLineChartActivity.findViewById<TextView>(R.id.tv2).text = "设置折线圆角度：${progress}dp"
+                    histogram.setLineChartRadius(progress.toFloat())
+                    this@ExquisiteLineChartActivity.findViewById<TextView>(R.id.tv2).text =
+                        "设置折线圆角度：${progress}dp"
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -147,7 +186,8 @@ class ExquisiteLineChartActivity : StageActivity() {
                     fromUser: Boolean
                 ) {
                     histogram.setBottomSpaceHeight(progress.toFloat())
-                    this@ExquisiteLineChartActivity.findViewById<TextView>(R.id.tv3).text = "底部留白高度：${progress}dp"
+                    this@ExquisiteLineChartActivity.findViewById<TextView>(R.id.tv3).text =
+                        "底部留白高度：${progress}dp"
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}

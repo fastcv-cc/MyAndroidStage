@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="3dp"
+        android:layout_height="3dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5.5dp"
+        android:background="@drawable/ui_shape_line_chart_select_point" />
+
+    <cc.fastcv.exquisite_linechart.DashedView
+        android:layout_width="3dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1" />
+
+    <FrameLayout
+        android:layout_width="12dp"
+        android:layout_height="12dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ui_shape_line_chart_select_point"
+            android:backgroundTint="#FFFFFF" />
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ui_shape_line_chart_select_point" />
+
+    </FrameLayout>
+
+</LinearLayout>

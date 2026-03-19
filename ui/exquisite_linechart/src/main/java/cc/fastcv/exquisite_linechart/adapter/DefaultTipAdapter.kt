@@ -1,4 +1,7 @@
-package cc.fastcv.exquisite_linechart
+package cc.fastcv.exquisite_linechart.adapter
+
+import cc.fastcv.exquisite_linechart.LineChartInfo
+import cc.fastcv.exquisite_linechart.adapter.TipAdapter
 
 internal class DefaultTipAdapter : TipAdapter() {
     override fun getTopText(position: Int, info: LineChartInfo): CharSequence {
@@ -6,6 +9,6 @@ internal class DefaultTipAdapter : TipAdapter() {
     }
 
     override fun getBottomText(position: Int, info: LineChartInfo): CharSequence {
-        return "${info.value}"
+        return "${info.value.x} - ${info.value.x}"
     }
 }

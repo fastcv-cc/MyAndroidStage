@@ -17,7 +17,7 @@ object RunningDataSimulator {
         totalMinutes: Int,
         minPace: Int,
         maxPace: Int
-    ): List<PointF> {
+    ): MutableList<PointF> {
         val result = mutableListOf<PointF>()
         val avgPace = (minPace + maxPace) / 2
         for (minute in 0 until totalMinutes) {

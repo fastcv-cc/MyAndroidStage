@@ -75,6 +75,10 @@ internal class ExquisiteLineChartParams(val context: Context) {
 
     internal var adapter: TipAdapter = DefaultTipAdapter()
 
+    internal var addZeroPoint = false
+
+    internal var yAxisIncrement = false
+
 
     internal fun dp2px(dpValue: Float): Float {
         return TypedValue.applyDimension(

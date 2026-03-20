@@ -189,6 +189,16 @@ class ExquisiteLineChartView @JvmOverloads constructor(
         refreshView()
     }
 
+    fun setAddZeroPoint(addZeroPoint: Boolean) {
+        lineChartParams.addZeroPoint = addZeroPoint
+        refreshView()
+    }
+
+    fun setYAxisIncrement(yAxisIncrement: Boolean) {
+        lineChartParams.yAxisIncrement = yAxisIncrement
+        refreshView()
+    }
+
     override fun setLayoutDirection(layoutDirection: Int) {
         super.setLayoutDirection(layoutDirection)
         refreshView()

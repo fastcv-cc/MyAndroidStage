@@ -9,6 +9,6 @@ internal class DefaultTipAdapter : TipAdapter() {
     }
 
     override fun getBottomText(position: Int, info: LineChartInfo): CharSequence {
-        return "${info.value.x} - ${info.value.x}"
+        return "${info.value.x} - ${info.value.y}"
     }
 }

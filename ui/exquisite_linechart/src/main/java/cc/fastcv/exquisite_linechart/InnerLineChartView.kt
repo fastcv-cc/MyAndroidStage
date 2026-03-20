@@ -91,48 +91,78 @@ internal class InnerLineChartView @JvmOverloads constructor(
         if (params.points.isEmpty()) return
         availableHeight = height - params.chartLineWidth
         availableWidth = width - params.chartLineWidth
-        lineChartInfoList.clear()
-        rawPoints.clear()
 
-        // 第一步：计算所有原始数据点坐标
-        rawPoints.add(PointF(0f, 0f))
         //x是从0开始的
         val averageXDistance = availableWidth * 1.0f / params.points.size
         //y是预留了从0开始的逻辑
         val averageYDistance =
             (availableHeight - params.bottomSpaceHeight) * 1.0f / (params.yAxisMaxValue - params.yAxisMinValue)
-        if (lastSelectIndex > params.points.size) {
+        if (lastSelectIndex >= (params.points.size + rawPoints.size)) {
             lastSelectIndex = -1
         }
+        calcRawPoints(averageXDistance, averageYDistance)
+        calcAverageLineHeight(averageYDistance)
+        calcPathAndLineChartInfoList()
+        calcShaderPathIfNeed()
+        coordinator.onLineChartInfoSelected(lastSelectIndex, null)
+    }
 
-        var yTotalValue = 0f
+
+    private fun calcRawPoints(averageXDistance: Float, averageYDistance: Float) {
+        rawPoints.clear()
+        if (params.addZeroPoint) {
+            rawPoints.add(PointF(0f, 0f))
+        }
+        val dataOffset = if (params.addZeroPoint) {
+            1
+        } else {
+            0
+        }
+
         for (i in 0 until params.points.size) {
-            val pointX = (i + 1) * averageXDistance
-            val pointY =
-                availableHeight - (params.yAxisMaxValue - params.points[i].y) * averageYDistance
+            val pointX = (i + dataOffset) * averageXDistance
+            val pointY = if (params.yAxisIncrement) {
+                params.bottomSpaceHeight + (params.points[i].y - params.yAxisMinValue) * averageYDistance
+            } else {
+                availableHeight - (params.points[i].y - params.yAxisMinValue) * averageYDistance
+            }
+
             rawPoints.add(PointF(pointX, pointY))
-            yTotalValue += params.points[i].y
             if (lastSelectIndex == -1) {
                 lastSelectIndex = i
             }
         }
-        averageLineHeight =
-            availableHeight - (params.yAxisMaxValue - (yTotalValue / params.points.size)) * averageYDistance
+    }
 
-        // 第二步：构建带贝塞尔圆滑的路径，并计算圆滑后的实际点坐标
-        lineChartPath.reset()
-        shaderPath.reset()
+    private fun calcAverageLineHeight(averageYDistance: Float) {
+        averageLineHeight = availableHeight - (params.yAxisMaxValue - (params.points.map { it.y }
+            .sum() / params.points.size)) * averageYDistance
+    }
 
-        // 第一个点（起点）不做圆滑处理
-        lineChartInfoList.add(
+    private fun calcPathAndLineChartInfoList() {
+        lineChartInfoList.clear()
+        val firstLineChartInfo = if (params.addZeroPoint) {
             LineChartInfo(
-                PointF(rawPoints[0].x, rawPoints[0].y),
+                rawPoints[0],
                 params.xAxisTouchRange,
                 PointF(0f, 0f)
             )
-        )
+        } else {
+            LineChartInfo(
+                rawPoints[0],
+                params.xAxisTouchRange,
+                params.points[0]
+            )
+        }
+        lineChartInfoList.add(firstLineChartInfo)
+
+        lineChartPath.reset()
         lineChartPath.moveTo(rawPoints[0].x, rawPoints[0].y)
-        shaderPath.moveTo(0f, 0f)
+        val dataOffset = if (params.addZeroPoint) {
+            -1
+        } else {
+            0
+        }
 
         for (i in 1 until rawPoints.size) {
             val curr = rawPoints[i]
@@ -165,11 +195,8 @@ internal class InnerLineChartView @JvmOverloads constructor(
 
                 // 画直线到切入点
                 lineChartPath.lineTo(enterX, enterY)
-                shaderPath.lineTo(enterX, enterY)
-
                 // 用二次贝塞尔曲线从切入点到切出点，控制点为原始拐角点
                 lineChartPath.quadTo(curr.x, curr.y, exitX, exitY)
-                shaderPath.quadTo(curr.x, curr.y, exitX, exitY)
 
                 // 贝塞尔曲线 t=0.5 处的点即为圆滑后的实际坐标
                 // Q(0.5) = 0.25*P0 + 0.5*P1 + 0.25*P2
@@ -180,38 +207,40 @@ internal class InnerLineChartView @JvmOverloads constructor(
                     LineChartInfo(
                         PointF(smoothX, smoothY),
                         params.xAxisTouchRange,
-                        params.points[i - 1]
+                        params.points[i + dataOffset]
                     )
                 )
             } else {
                 // 最后一个点：直接连线，不做圆滑
                 lineChartPath.lineTo(curr.x, curr.y)
-                shaderPath.lineTo(curr.x, curr.y)
-
                 lineChartInfoList.add(
                     LineChartInfo(
                         PointF(curr.x, curr.y),
                         params.xAxisTouchRange,
-                        params.points[i - 1]
+                        params.points[i + dataOffset]
                     )
                 )
             }
         }
+    }
 
-        shaderPath.lineTo(
-            width.toFloat(),
-            lineChartInfoList[lineChartInfoList.size - 1].pointF.y
-        )
-        shaderPath.lineTo(
-            width.toFloat(),
-            0f
-        )
-        shaderPath.lineTo(
-            0f,
-            0f
-        )
-        shaderPath.close()
-        coordinator.onLineChartInfoSelected(lastSelectIndex, null)
+    private fun calcShaderPathIfNeed() {
+        if (params.shader != null) {
+            shaderPath = Path(lineChartPath)
+            shaderPath.lineTo(
+                width.toFloat(),
+                lineChartInfoList[lineChartInfoList.size - 1].pointF.y
+            )
+            shaderPath.lineTo(
+                width.toFloat(),
+                0f
+            )
+            shaderPath.lineTo(
+                0f,
+                0f
+            )
+            shaderPath.close()
+        }
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -259,7 +288,10 @@ internal class InnerLineChartView @JvmOverloads constructor(
             if (position != -1 && lastSelectIndex != position) {
                 lastSelectIndex = position
                 invalidate()
-                coordinator.onLineChartInfoSelected(lastSelectIndex, lineChartInfoList[lastSelectIndex])
+                coordinator.onLineChartInfoSelected(
+                    lastSelectIndex,
+                    lineChartInfoList[lastSelectIndex]
+                )
             }
         }
         return true

@@ -6,13 +6,14 @@ import android.graphics.LinearGradient
 import android.graphics.PointF
 import android.graphics.Shader
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
@@ -26,14 +27,6 @@ class ExquisiteLineChartActivity : StageActivity() {
 
     private lateinit var histogram: ExquisiteLineChartView
 
-//    private var shader = LinearGradient(
-//        0f, 0f,
-//        0f, height.toFloat(),
-//        "#330000FF".toColorInt(),
-//        Color.TRANSPARENT,
-//        Shader.TileMode.CLAMP
-//    )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -45,7 +38,6 @@ class ExquisiteLineChartActivity : StageActivity() {
         }
 
         histogram = findViewById(R.id.histogram)
-
 
         initHistogramWidth()
         initSideBarWidth()
@@ -65,10 +57,10 @@ class ExquisiteLineChartActivity : StageActivity() {
             minPace = 390,
             maxPace = 460
         )
-        setData(data)
+        setData(data, false)
     }
 
-    private fun setData(data: List<PointF>) {
+    private fun setData(data: MutableList<PointF>, yAxisIncrement: Boolean) {
         //时间
         val xList = data.map { it.x }
         //配速
@@ -104,7 +96,10 @@ class ExquisiteLineChartActivity : StageActivity() {
                 )
             )
         }
-
+        if (yAxisIncrement) {
+            yLabelList.reverse()
+        }
+        histogram.setYAxisIncrement(yAxisIncrement)
         histogram.setXAxisParams(xLabelList, xMin, xMax)
         histogram.setYAxisParams(yLabelList, yMin, yMax)
         histogram.setPoints(data)
@@ -115,12 +110,16 @@ class ExquisiteLineChartActivity : StageActivity() {
             val totalMinutes = findViewById<EditText>(R.id.edTotalMinutes).text.toString().toInt()
             val minPace = findViewById<EditText>(R.id.edMinPace).text.toString().toInt()
             val maxPace = findViewById<EditText>(R.id.edMaxPace).text.toString().toInt()
+            val addZero = findViewById<AppCompatCheckBox>(R.id.cbAddVirtualZero).isChecked
+            val yAxisIncrement = findViewById<AppCompatCheckBox>(R.id.cbYAxisIncrement).isChecked
             val newData = RunningDataSimulator.generateRunData(
                 totalMinutes = totalMinutes,
                 minPace = minPace,
                 maxPace = maxPace
             )
-            setData(newData)
+            Log.d("xcl_debug", "initDataSync: addZero = $addZero")
+            histogram.setAddZeroPoint(addZero)
+            setData(newData,yAxisIncrement)
         }
     }
 

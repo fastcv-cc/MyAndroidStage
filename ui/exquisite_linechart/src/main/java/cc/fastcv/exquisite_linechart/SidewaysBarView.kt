@@ -28,6 +28,7 @@ class SidewaysBarView @JvmOverloads constructor(
 
     private fun buildSlideWayBar() {
         updateSideBarWith()
+        setPadding(0, 0, 0, params.bottomSpaceHeight.toInt())
         val totalSize = params.divideEquallyYAxisLabelList.size
         val spaceViewSize = totalSize - 1
 

@@ -177,6 +177,11 @@ class ExquisiteSegDiagramView @JvmOverloads constructor(
         refreshView()
     }
 
+    fun setAutoLineWidth(autoLineWidth: Boolean) {
+        seqDiagramParams.autoLineWidth = autoLineWidth
+        refreshView()
+    }
+
     override fun setLayoutDirection(layoutDirection: Int) {
         super.setLayoutDirection(layoutDirection)
         refreshView()

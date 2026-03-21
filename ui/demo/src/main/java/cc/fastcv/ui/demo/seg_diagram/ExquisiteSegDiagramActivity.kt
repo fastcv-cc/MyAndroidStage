@@ -3,12 +3,14 @@ package cc.fastcv.ui.demo.seg_diagram
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
@@ -97,6 +99,9 @@ class ExquisiteSegDiagramActivity : StageActivity() {
             val totalMinutes = findViewById<EditText>(R.id.edTotalMinutes).text.toString().toInt()
             val minHr = findViewById<EditText>(R.id.edMinHr).text.toString().toInt()
             val maxHr = findViewById<EditText>(R.id.edMaxHr).text.toString().toInt()
+
+            val autoLineWidth = findViewById<AppCompatCheckBox>(R.id.cbAutoLineWidth).isChecked
+            segDiagram.setAutoLineWidth(autoLineWidth)
             val newData = RunningDataSimulator.generateHeartRateData(
                 totalMinutes = totalMinutes,
                 minHr = minHr,

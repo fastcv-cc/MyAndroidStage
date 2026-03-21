@@ -75,9 +75,14 @@ internal class ExquisiteLineChartParams(val context: Context) {
 
     internal var adapter: TipAdapter = DefaultTipAdapter()
 
+    //是否添加一个（0，0）原点，然后从原点出发
     internal var addZeroPoint = false
 
+    //设置y轴数据显示是否从下往上递增显示
     internal var yAxisIncrement = false
+
+    //数据过密时，是否自动适配线宽
+    internal var autoLineWidth = false
 
 
     internal fun dp2px(dpValue: Float): Float {

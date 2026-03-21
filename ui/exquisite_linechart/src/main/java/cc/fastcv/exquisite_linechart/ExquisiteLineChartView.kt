@@ -199,6 +199,11 @@ class ExquisiteLineChartView @JvmOverloads constructor(
         refreshView()
     }
 
+    fun setAutoLineWidth(autoLineWidth: Boolean) {
+        lineChartParams.autoLineWidth = autoLineWidth
+        refreshView()
+    }
+
     override fun setLayoutDirection(layoutDirection: Int) {
         super.setLayoutDirection(layoutDirection)
         refreshView()

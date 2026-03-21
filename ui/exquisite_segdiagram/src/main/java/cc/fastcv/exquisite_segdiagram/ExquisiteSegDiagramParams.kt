@@ -64,6 +64,9 @@ internal class ExquisiteSegDiagramParams(val context: Context) {
 
     internal var adapter: TipAdapter = DefaultTipAdapter()
 
+    //数据过密时，是否自动适配线宽
+    internal var autoLineWidth = false
+
     internal fun dp2px(dpValue: Float): Float {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,

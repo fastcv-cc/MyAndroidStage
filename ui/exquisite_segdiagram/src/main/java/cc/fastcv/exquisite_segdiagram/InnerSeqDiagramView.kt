@@ -85,15 +85,17 @@ internal class InnerSeqDiagramView @JvmOverloads constructor(
         var averageXSpaceDistance =
             (availableWidth * 1.0f - params.sourceData.size * params.segDiagramLineWidth) / params.sourceData.size
 
-        if (averageXSpaceDistance <= 0f) {
-            //点过于密集 自动适配
-            while (true) {
-                params.segDiagramLineWidth -= 0.2f
-                averageXSpaceDistance =
-                    (availableWidth * 1.0f - params.sourceData.size * params.segDiagramLineWidth) / (params.sourceData.size - 1)
+        if (params.autoLineWidth) {
+            if (averageXSpaceDistance <= 0f) {
+                //点过于密集 自动适配
+                while (true) {
+                    params.segDiagramLineWidth -= 0.2f
+                    averageXSpaceDistance =
+                        (availableWidth * 1.0f - params.sourceData.size * params.segDiagramLineWidth) / (params.sourceData.size - 1)
 
-                if (averageXSpaceDistance > 2.0f) {
-                    break
+                    if (averageXSpaceDistance > 2.0f) {
+                        break
+                    }
                 }
             }
         }
@@ -142,9 +144,6 @@ internal class InnerSeqDiagramView @JvmOverloads constructor(
             if (lastSelectIndex == -1) {
                 lastSelectIndex = i
             }
-        }
-        for (info in seqDiagramInfoList) {
-            Log.d("xcl_debug", "calcSeqDiagramInfoList: info = $info")
         }
     }
 

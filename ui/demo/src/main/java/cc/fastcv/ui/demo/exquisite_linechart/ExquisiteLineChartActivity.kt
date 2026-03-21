@@ -112,6 +112,7 @@ class ExquisiteLineChartActivity : StageActivity() {
             val maxPace = findViewById<EditText>(R.id.edMaxPace).text.toString().toInt()
             val addZero = findViewById<AppCompatCheckBox>(R.id.cbAddVirtualZero).isChecked
             val yAxisIncrement = findViewById<AppCompatCheckBox>(R.id.cbYAxisIncrement).isChecked
+            val autoLineWidth = findViewById<AppCompatCheckBox>(R.id.cbAutoLineWidth).isChecked
             val newData = RunningDataSimulator.generateRunData(
                 totalMinutes = totalMinutes,
                 minPace = minPace,
@@ -119,6 +120,7 @@ class ExquisiteLineChartActivity : StageActivity() {
             )
             Log.d("xcl_debug", "initDataSync: addZero = $addZero")
             histogram.setAddZeroPoint(addZero)
+            histogram.setAutoLineWidth(autoLineWidth)
             setData(newData,yAxisIncrement)
         }
     }

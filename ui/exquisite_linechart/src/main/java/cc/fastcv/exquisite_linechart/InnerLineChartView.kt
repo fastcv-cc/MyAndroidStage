@@ -98,14 +98,16 @@ internal class InnerLineChartView @JvmOverloads constructor(
         val averageYDistance =
             (availableHeight - params.bottomSpaceHeight) * 1.0f / (params.yAxisMaxValue - params.yAxisMinValue)
 
-        //点很密集的情况
-        if ((averageXDistance - params.chartLineWidth) <1.0f) {
-            while (true) {
-                params.chartLineWidth -= 0.2f
-                availableWidth = width - params.chartLineWidth
-                averageXDistance = availableWidth * 1.0f / params.points.size
-                if ((averageXDistance - params.chartLineWidth) >= 1.0f) {
-                    break
+        if (params.autoLineWidth) {
+            //点很密集的情况
+            if ((averageXDistance - params.chartLineWidth) <1.0f) {
+                while (true) {
+                    params.chartLineWidth -= 0.2f
+                    availableWidth = width - params.chartLineWidth
+                    averageXDistance = availableWidth * 1.0f / params.points.size
+                    if ((averageXDistance - params.chartLineWidth) >= 1.0f) {
+                        break
+                    }
                 }
             }
         }

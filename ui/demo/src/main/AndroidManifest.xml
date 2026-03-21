@@ -9,5 +9,6 @@
         <activity android:name="cc.fastcv.ui.demo.date_switch_view.DateSwitchViewActivity" />
         <activity android:name="cc.fastcv.ui.demo.modern_cardview.ModernCardViewActivity" />
         <activity android:name="cc.fastcv.ui.demo.exquisite_linechart.ExquisiteLineChartActivity" />
+        <activity android:name="cc.fastcv.ui.demo.seg_diagram.ExquisiteSegDiagramActivity" />
     </application>
 </manifest>

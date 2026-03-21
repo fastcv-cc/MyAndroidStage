@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cc.fastcv.exquisite_linechart.ExquisiteLineChartView
+import cc.fastcv.exquisite_segdiagram.ExquisiteSegDiagramView
 import cc.fastcv.lib_components.BaseRecyclerViewAdapter
 import cc.fastcv.lib_components.BaseViewHolder
 import cc.fastcv.line_number_clock.LineNumberClockView
@@ -20,6 +21,7 @@ import cc.fastcv.ui.demo.exquisite_linechart.ExquisiteLineChartActivity
 import cc.fastcv.ui.demo.flash_text_view.FlashTextViewActivity
 import cc.fastcv.ui.demo.line_number_clock.LineNumberClockActivity
 import cc.fastcv.ui.demo.modern_cardview.ModernCardViewActivity
+import cc.fastcv.ui.demo.seg_diagram.ExquisiteSegDiagramActivity
 
 class UIDemoActivity : StageActivity() {
 
@@ -62,6 +64,12 @@ class UIDemoActivity : StageActivity() {
             "精美折线图组件",
             R.drawable.ic_histogram,
             ExquisiteLineChartActivity::class.java
+        ),
+        UIComponent(
+            "ExquisiteSegDiagram",
+            "精美线段图图组件",
+            R.drawable.ic_histogram,
+            ExquisiteSegDiagramActivity::class.java
         )
     )
 

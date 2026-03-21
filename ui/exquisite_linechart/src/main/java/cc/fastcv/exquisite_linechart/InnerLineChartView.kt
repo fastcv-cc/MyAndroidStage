@@ -91,12 +91,25 @@ internal class InnerLineChartView @JvmOverloads constructor(
         if (params.points.isEmpty()) return
         availableHeight = height - params.chartLineWidth
         availableWidth = width - params.chartLineWidth
-
+        rawPoints.clear()
         //x是从0开始的
-        val averageXDistance = availableWidth * 1.0f / params.points.size
+        var averageXDistance = availableWidth * 1.0f / params.points.size
         //y是预留了从0开始的逻辑
         val averageYDistance =
             (availableHeight - params.bottomSpaceHeight) * 1.0f / (params.yAxisMaxValue - params.yAxisMinValue)
+
+        //点很密集的情况
+        if ((averageXDistance - params.chartLineWidth) <1.0f) {
+            while (true) {
+                params.chartLineWidth -= 0.2f
+                availableWidth = width - params.chartLineWidth
+                averageXDistance = availableWidth * 1.0f / params.points.size
+                if ((averageXDistance - params.chartLineWidth) >= 1.0f) {
+                    break
+                }
+            }
+        }
+
         if (lastSelectIndex >= (params.points.size + rawPoints.size)) {
             lastSelectIndex = -1
         }
@@ -109,18 +122,12 @@ internal class InnerLineChartView @JvmOverloads constructor(
 
 
     private fun calcRawPoints(averageXDistance: Float, averageYDistance: Float) {
-        rawPoints.clear()
         if (params.addZeroPoint) {
             rawPoints.add(PointF(0f, 0f))
         }
-        val dataOffset = if (params.addZeroPoint) {
-            1
-        } else {
-            0
-        }
 
         for (i in 0 until params.points.size) {
-            val pointX = (i + dataOffset) * averageXDistance
+            val pointX = (i + 1) * averageXDistance
             val pointY = if (params.yAxisIncrement) {
                 params.bottomSpaceHeight + (params.points[i].y - params.yAxisMinValue) * averageYDistance
             } else {

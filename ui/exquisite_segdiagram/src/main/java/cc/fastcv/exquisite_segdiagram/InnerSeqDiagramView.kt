@@ -83,7 +83,7 @@ internal class InnerSeqDiagramView @JvmOverloads constructor(
 
         //x是从0开始的
         var averageXSpaceDistance =
-            (availableWidth * 1.0f - params.sourceData.size * params.segDiagramLineWidth) / (params.sourceData.size - 1)
+            (availableWidth * 1.0f - params.sourceData.size * params.segDiagramLineWidth) / params.sourceData.size
 
         if (averageXSpaceDistance <= 0f) {
             //点过于密集 自动适配
@@ -125,7 +125,7 @@ internal class InnerSeqDiagramView @JvmOverloads constructor(
     ) {
         seqDiagramInfoList.clear()
         for (i in 0 until params.sourceData.size) {
-            val pointX = i * (averageXSpaceDistance + params.segDiagramLineWidth)
+            val pointX = (i + 1) * (averageXSpaceDistance + params.segDiagramLineWidth)
             val startPointY =
                 calcY(params.sourceData[i].min, averageYDistance)
             val endPointY =

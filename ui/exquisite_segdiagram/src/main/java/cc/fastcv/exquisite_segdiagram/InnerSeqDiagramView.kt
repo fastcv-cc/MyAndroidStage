@@ -166,8 +166,13 @@ internal class InnerSeqDiagramView @JvmOverloads constructor(
                     params.segDiagramLineWidth / 2.0f
                 )
                 loadDrawLinePaintConfig()
-                seqDiagramInfoList.forEach {
-                    it.drawSegDiagram(canvas, paint)
+                seqDiagramInfoList.forEachIndexed { index, info ->
+                    if (index == lastSelectIndex) {
+                        paint.color = params.selectedLineColor
+                    } else {
+                        paint.color = params.segDiagramLineColor
+                    }
+                    info.drawSegDiagram(canvas, paint)
                 }
                 loadDrawCentralLinePaintConfig()
                 //画分割线

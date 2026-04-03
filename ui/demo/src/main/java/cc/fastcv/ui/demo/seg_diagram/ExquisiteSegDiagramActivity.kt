@@ -40,6 +40,8 @@ class ExquisiteSegDiagramActivity : StageActivity() {
         initLineWidth()
         initBottomSpace()
         initLineColor()
+        initSelectedLineColor()
+        initTipBgColor()
         initCentralLineWidth()
         initCentralLineColor()
         initSideBarWidth()
@@ -160,6 +162,50 @@ class ExquisiteSegDiagramActivity : StageActivity() {
         }
         findViewById<Button>(R.id.bt_line_color_blue).setOnClickListener {
             segDiagram.setChartLineColor(Color.BLUE)
+        }
+    }
+
+    private fun initSelectedLineColor() {
+        findViewById<Button>(R.id.bt_selected_color_orange).setOnClickListener {
+            segDiagram.setSelectedLineColor("#FF5722".toColorInt())
+        }
+        findViewById<Button>(R.id.bt_selected_color_red).setOnClickListener {
+            segDiagram.setSelectedLineColor(Color.RED)
+        }
+        findViewById<Button>(R.id.bt_selected_color_purple).setOnClickListener {
+            segDiagram.setSelectedLineColor("#9C27B0".toColorInt())
+        }
+    }
+
+    private fun initTipBgColor() {
+        findViewById<Button>(R.id.bt_tip_bg_default).setOnClickListener {
+            segDiagram.setTipAdapter(object : cc.fastcv.exquisite_segdiagram.adapter.TipAdapter() {
+                override fun getTopText(position: Int, info: cc.fastcv.exquisite_segdiagram.SegDiagramInfo) =
+                    "index:$position"
+                override fun getBottomText(position: Int, info: cc.fastcv.exquisite_segdiagram.SegDiagramInfo) =
+                    "${info.value.min.toInt()} - ${info.value.max.toInt()}"
+                override fun getTipBackgroundColor(position: Int, info: cc.fastcv.exquisite_segdiagram.SegDiagramInfo) = 0
+            })
+        }
+        findViewById<Button>(R.id.bt_tip_bg_yellow).setOnClickListener {
+            segDiagram.setTipAdapter(object : cc.fastcv.exquisite_segdiagram.adapter.TipAdapter() {
+                override fun getTopText(position: Int, info: cc.fastcv.exquisite_segdiagram.SegDiagramInfo) =
+                    "index:$position"
+                override fun getBottomText(position: Int, info: cc.fastcv.exquisite_segdiagram.SegDiagramInfo) =
+                    "${info.value.min.toInt()} - ${info.value.max.toInt()}"
+                override fun getTipBackgroundColor(position: Int, info: cc.fastcv.exquisite_segdiagram.SegDiagramInfo) =
+                    "#FFF9C4".toColorInt()
+            })
+        }
+        findViewById<Button>(R.id.bt_tip_bg_pink).setOnClickListener {
+            segDiagram.setTipAdapter(object : cc.fastcv.exquisite_segdiagram.adapter.TipAdapter() {
+                override fun getTopText(position: Int, info: cc.fastcv.exquisite_segdiagram.SegDiagramInfo) =
+                    "index:$position"
+                override fun getBottomText(position: Int, info: cc.fastcv.exquisite_segdiagram.SegDiagramInfo) =
+                    "${info.value.min.toInt()} - ${info.value.max.toInt()}"
+                override fun getTipBackgroundColor(position: Int, info: cc.fastcv.exquisite_segdiagram.SegDiagramInfo) =
+                    "#F8BBD0".toColorInt()
+            })
         }
     }
 

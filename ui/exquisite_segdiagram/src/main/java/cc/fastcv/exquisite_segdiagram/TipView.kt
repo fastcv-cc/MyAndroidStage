@@ -1,6 +1,7 @@
 package cc.fastcv.exquisite_segdiagram
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import android.widget.TextView
@@ -80,6 +81,13 @@ internal class TipView @JvmOverloads constructor(
             val adapter = params.adapter
             tvTop.text = adapter.getTopText(lastIndex, it)
             tvBottom.text = adapter.getBottomText(lastIndex, it)
+            val bgColor = adapter.getTipBackgroundColor(lastIndex, it)
+            if (bgColor != 0) {
+                val bg = background
+                if (bg is GradientDrawable) {
+                    bg.setColor(bgColor)
+                }
+            }
         }
     }
 

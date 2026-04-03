@@ -50,6 +50,9 @@ internal class ExquisiteSegDiagramParams(val context: Context) {
     //折线颜色
     internal var segDiagramLineColor = "#026543".toColorInt()
 
+    //选中线段颜色
+    internal var selectedLineColor = "#FF5722".toColorInt()
+
     //中间线线宽
     internal var centralLineWidth = dp2px(1f)
 

@@ -142,6 +142,11 @@ class ExquisiteSegDiagramView @JvmOverloads constructor(
         refreshView()
     }
 
+    fun setSelectedLineColor(color: Int) {
+        seqDiagramParams.selectedLineColor = color
+        refreshView()
+    }
+
     fun setCentralLineWidth(value: Float) {
         seqDiagramParams.centralLineWidth = seqDiagramParams.dp2px(value)
         refreshView()

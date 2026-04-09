@@ -22,7 +22,7 @@ internal class DashedView @JvmOverloads constructor(
     /**
      * 线颜色
      */
-    private var dashedColor = "#A3B352".toColorInt()
+    private var dashedColor = "#F3B59D".toColorInt()
 
     /**
      * 每格虚线的宽
@@ -65,6 +65,11 @@ internal class DashedView @JvmOverloads constructor(
                 )
             ), 0f
         )
+    }
+
+    fun setColor(color: Int) {
+        paint.color = color
+        invalidate()
     }
 
     /**

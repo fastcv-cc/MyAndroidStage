@@ -30,6 +30,7 @@ internal class PointSelectIndicatorView @JvmOverloads constructor(
     }
 
     internal fun refreshView() {
+        findViewById<DashedView>(R.id.dashView).setColor(params.dashLineColor)
         post {
             moveTo(lastIndex)
         }

@@ -70,6 +70,9 @@ internal class ExquisiteSegDiagramParams(val context: Context) {
     //数据过密时，是否自动适配线宽
     internal var autoLineWidth = false
 
+    //虚线颜色
+    internal var dashLineColor = "#F3B59D".toColorInt()
+
     internal fun dp2px(dpValue: Float): Float {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,

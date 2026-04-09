@@ -1,6 +1,7 @@
 package cc.fastcv.exquisite_segdiagram
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.widget.FrameLayout
@@ -184,6 +185,11 @@ class ExquisiteSegDiagramView @JvmOverloads constructor(
 
     fun setAutoLineWidth(autoLineWidth: Boolean) {
         seqDiagramParams.autoLineWidth = autoLineWidth
+        refreshView()
+    }
+
+    fun setDashLineColor(color: Int) {
+        seqDiagramParams.dashLineColor = color
         refreshView()
     }
 
